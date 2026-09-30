@@ -1,0 +1,105 @@
+{
+  "currency": "PKR",
+  "phone": "03343680630",
+  "whatsappPhone": "923343680630",
+  "rooms": [
+    {
+      "id": "titan",
+      "name": "PS-5 Private Room Titan",
+      "category": "ps5",
+      "badge": "POPULAR",
+      "regularHour": 1000,
+      "discountHour": 800,
+      "regularHalf": 500,
+      "discountHalf": 400,
+      "description": "Private soundproofed room with 4K HDR display, DualSense controllers, acoustic walling, and neon ambient lights.",
+      "image": "assets/images/ps5_room.jpg",
+      "features": ["4K 120Hz Gaming Screen", "2x DualSense Controllers", "Private Plush Sofa", "Climate Controlled"]
+    },
+    {
+      "id": "omega",
+      "name": "PS-5 Private Room Omega",
+      "category": "ps5",
+      "badge": "OPENING SPECIAL",
+      "regularHour": 1000,
+      "discountHour": 800,
+      "regularHalf": 500,
+      "discountHalf": 400,
+      "description": "Immersive private PS5 room designed for competitive duos and co-op gaming sessions with ultra low-latency setup.",
+      "image": "assets/images/hero_lounge.jpg",
+      "features": ["4K HDR Display", "2x Wireless DualSense", "RGB Neon Lighting", "High-Speed Network"]
+    },
+    {
+      "id": "phantom",
+      "name": "PS-5 Private Room Phantom",
+      "category": "ps5",
+      "badge": "LIMITED OFFER",
+      "regularHour": 1000,
+      "discountHour": 800,
+      "regularHalf": 500,
+      "discountHalf": 400,
+      "description": "Sleek dark void themed private gaming sanctuary with crisp surround visuals and ultra-comfortable seating.",
+      "image": "assets/images/ps5_room.jpg",
+      "features": ["High Contrast OLED TV", "2x DualSense Controllers", "Pro Audio Setup", "Complete Privacy"]
+    },
+    {
+      "id": "vault",
+      "name": "PS-5 VIP Room The Vault",
+      "category": "ps5",
+      "badge": "PREMIUM VIP",
+      "regularHour": 1200,
+      "discountHour": 1000,
+      "regularHalf": 600,
+      "discountHalf": 500,
+      "description": "The ultimate VIP flagship suite. Huge OLED screen, extra plush recliners, custom RGB control, and group seating.",
+      "image": "assets/images/hero_lounge.jpg",
+      "features": ["65\" 4K 120Hz OLED Screen", "Luxury Recliner Sofas", "DualSense Controller Support", "VIP Lounge Access"]
+    },
+    {
+      "id": "snooker",
+      "name": "Tournament Snooker Table",
+      "category": "table",
+      "badge": "PRO GRADE",
+      "regularHour": 840,
+      "discountHour": 720,
+      "regularHalf": 420,
+      "discountHalf": 360,
+      "description": "Full-size professional snooker table with high-grade green felt, shadowless overhead canopy LED lighting, and pro cues.",
+      "image": "assets/images/snooker_room.jpg",
+      "features": ["Full-Size Tournament Slate", "Precision Overhead LED Light", "Aramith Pro Balls", "Custom Cue Racks"]
+    },
+    {
+      "id": "carrom",
+      "name": "Dabbu (Carrom Arena)",
+      "category": "board",
+      "badge": "CLASSIC FUN",
+      "regularHour": 500,
+      "discountHour": 400,
+      "regularHalf": 250,
+      "discountHalf": 200,
+      "description": "Premium smooth-finish tournament Carrom board setup with heavy strikers, smooth powdering, and dedicated seating.",
+      "image": "assets/images/carrom_luddo.jpg",
+      "features": ["Smooth Tournament Board", "Heavy Precision Strikers", "Comfortable Seating", "Ambient Accent Light"]
+    },
+    {
+      "id": "luddo",
+      "name": "Luddo Lounge Table",
+      "category": "board",
+      "badge": "GROUP FAVORITE",
+      "regularHour": 350,
+      "discountHour": 350,
+      "regularHalf": 200,
+      "discountHalf": 200,
+      "description": "Classic Luddo board setup in a comfortable, relaxed lounge area for friends, families, and casual group play.",
+      "image": "assets/images/carrom_luddo.jpg",
+      "features": ["Custom Wood Luddo Board", "Precision Dice & Tokens", "Multi-Player Seating", "Relaxed Vibe"]
+    }
+  ],
+  "addons": {
+    "extraController": {
+      "name": "Extra PS-5 Controller",
+      "pricePerHour": 150,
+      "maxQty": 4
+    }
+  }
+}

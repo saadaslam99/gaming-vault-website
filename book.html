@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Portal | Gaming Vault (@gamingvault47.pk)</title>
+  <meta name="description" content="Dedicated 24/7 booking engine for Gaming Vault. Select date, time slot, PS5 suites, snooker, or board games and lock your slot instantly.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    /* Specific Booking Engine Styles */
+    .slot-btn {
+      background: rgba(13, 17, 36, 0.7);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+      color: #cbd5e1;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.4rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+    .slot-btn:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+    }
+    .slot-btn.active {
+      background: linear-gradient(135deg, rgba(0, 210, 255, 0.3), rgba(0, 120, 255, 0.5));
+      border-color: var(--neon-cyan);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+    }
+    
+    .date-card {
+      background: rgba(13, 17, 36, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      min-width: 100px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+    .date-card:hover, .date-card.active {
+      background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(255, 0, 127, 0.2));
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
+    }
+
+    .amenity-card-select {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .amenity-card-select.selected {
+      border-color: var(--neon-cyan) !important;
+      box-shadow: 0 0 25px rgba(0, 210, 255, 0.4) !important;
+      background: rgba(20, 30, 60, 0.9) !important;
+    }
+
+    .duration-btn {
+      background: rgba(13, 17, 36, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #cbd5e1;
+      padding: 0.6rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .duration-btn.active {
+      background: var(--neon-cyan);
+      color: #050711;
+      border-color: var(--neon-cyan);
+      font-weight: 800;
+      box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-void text-slate-100 antialiased selection:bg-cyan-500 selection:text-black min-h-screen flex flex-col justify-between">
+
+  <!-- ================= HEADER ================= -->
+  <header class="bg-slate-950/90 border-b border-cyan-500/30 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Left: Back to website -->
+      <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-cyan-400 text-sm font-subheading font-bold transition">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back to Website</span>
+      </a>
+
+      <!-- Center: Portal Brand -->
+      <div class="text-center">
+        <div class="text-lg sm:text-xl font-black font-heading tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-pink-500">
+          GAMING VAULT PORTAL
+        </div>
+        <div class="text-[10px] text-slate-400 tracking-widest uppercase font-subheading">24/7 DEDICATED BOOKING ENGINE</div>
+      </div>
+
+      <!-- Right: Call & Status -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex status-pill">
+          <span class="led-pulse"></span>
+          <span>24/7 ACTIVE</span>
+        </div>
+        <a href="tel:03343680630" class="btn-neon-cyan !py-1.5 !px-3 text-xs">
+          <i class="fa-solid fa-phone"></i>
+          <span class="hidden md:inline">0334 3680630</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 space-y-12 cyber-grid">
+    
+    <!-- Title Banner -->
+    <div class="text-center space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 text-xs font-bold font-subheading uppercase tracking-widest">
+        <i class="fa-solid fa-bolt text-yellow-400"></i> Instant Reservation Engine
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black font-heading tracking-tight">
+        LOCK YOUR <span class="text-cyan-400 text-glow-cyan">SESSION SLOT</span>
+      </h1>
+      <p class="text-slate-400 max-w-xl mx-auto text-sm">
+        Select your room or table, pick an exact date and 24/7 time slot, verify your pricing pass, and dispatch to WhatsApp instantly.
+      </p>
+    </div>
+
+    <!-- ================= STEP 1: AMENITY DIRECTORY ================= -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h2 class="text-xl font-bold font-heading text-white flex items-center gap-2">
+          <span class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs font-black border border-cyan-500/40">1</span>
+          Select Amenity / Suite
+        </h2>
+        <span class="text-xs text-cyan-400 font-bold" id="selected-amenity-label">PS-5 Room Titan Selected</span>
+      </div>
+
+      <!-- Amenity Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="amenity-grid">
+        
+        <!-- Titan -->
+        <div class="amenity-card-select glass-panel p-4 rounded-xl space-y-3 selected" data-id="titan" onclick="selectAmenity('titan')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/40 uppercase">POPULAR</span>
+            <span class="text-xs text-slate-400">2 Controllers</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">PS-5 Room Titan</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">Private soundproof suite, 4K HDR screen, leather couch.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-cyan-400">800 PKR/hr</span>
+            <span class="text-[11px] text-slate-400 line-through">1,000 PKR</span>
+          </div>
+        </div>
+
+        <!-- Omega -->
+        <div class="amenity-card-select glass-panel p-4 rounded-xl space-y-3" data-id="omega" onclick="selectAmenity('omega')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-pink-400 bg-pink-950/80 px-2 py-0.5 rounded border border-pink-500/40 uppercase">SPECIAL</span>
+            <span class="text-xs text-slate-400">2 Controllers</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">PS-5 Room Omega</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">High-FPS low-latency display, RGB neon ambiance.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-cyan-400">800 PKR/hr</span>
+            <span class="text-[11px] text-slate-400 line-through">1,000 PKR</span>
+          </div>
+        </div>
+
+        <!-- Phantom -->
+        <div class="amenity-card-select glass-panel p-4 rounded-xl space-y-3" data-id="phantom" onclick="selectAmenity('phantom')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded border border-purple-500/40 uppercase">PRIVACY</span>
+            <span class="text-xs text-slate-400">2 Controllers</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">PS-5 Room Phantom</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">Dark void theme, OLED high-contrast display, pro audio.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-cyan-400">800 PKR/hr</span>
+            <span class="text-[11px] text-slate-400 line-through">1,000 PKR</span>
+          </div>
+        </div>
+
+        <!-- Vault VIP -->
+        <div class="amenity-card-select glass-panel glass-panel-magenta p-4 rounded-xl space-y-3" data-id="vault_vip" onclick="selectAmenity('vault_vip')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/40 uppercase">VIP FLAGSHIP</span>
+            <span class="text-xs text-pink-400 font-bold">65" OLED</span>
+          </div>
+          <h3 class="font-heading font-bold text-pink-400 text-base">The Vault (VIP Room)</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">Flagship suite, VIP recliners, group seating up to 6.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-pink-400">1,000 PKR/hr</span>
+            <span class="text-[11px] text-slate-400 line-through">1,200 PKR</span>
+          </div>
+        </div>
+
+        <!-- Snooker -->
+        <div class="amenity-card-select glass-panel p-4 rounded-xl space-y-3" data-id="snooker" onclick="selectAmenity('snooker')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/40 uppercase">PRO SNOOKER</span>
+            <span class="text-xs text-slate-400">Full Slate</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">Tournament Snooker</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">Overhead canopy LED light, Aramith balls & pro cues.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-emerald-400">720 PKR/hr</span>
+            <span class="text-[11px] text-slate-400 line-through">840 PKR</span>
+          </div>
+        </div>
+
+        <!-- Dabbu Carrom -->
+        <div class="amenity-card-select glass-panel p-4 rounded-xl space-y-3" data-id="dabbu" onclick="selectAmenity('dabbu')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-sky-400 bg-sky-950/80 px-2 py-0.5 rounded border border-sky-500/40 uppercase">BOARD GAME</span>
+            <span class="text-xs text-slate-400">4 Players</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">Dabbu (Carrom Arena)</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">Smooth tournament carrom board, heavy strikers.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-cyan-400">400 PKR/hr</span>
+            <span class="text-[11px] text-slate-400 line-through">500 PKR</span>
+          </div>
+        </div>
+
+        <!-- Luddo -->
+        <div class="amenity-card-select glass-panel p-4 rounded-xl space-y-3" data-id="luddo" onclick="selectAmenity('luddo')">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black text-slate-300 bg-slate-800 px-2 py-0.5 rounded uppercase">CLASSIC</span>
+            <span class="text-xs text-slate-400">Group Lounge</span>
+          </div>
+          <h3 class="font-heading font-bold text-white text-base">Luddo Arena</h3>
+          <p class="text-xs text-slate-400 line-clamp-2">Relaxed group lounge table with tokens & dice.</p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-sm font-bold text-white">350 PKR/hr</span>
+            <span class="text-[11px] text-slate-400">Half-hr: 200</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= STEP 2 & 3: DATE & 24/7 TIME SLOT MATRIX ================= -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Left Column: Date Carousel & Time Slot Grid -->
+      <div class="lg:col-span-8 space-y-8">
+        
+        <!-- Step 2: 7-Day Date Carousel -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 class="text-xl font-bold font-heading text-white flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs font-black border border-cyan-500/40">2</span>
+              Select Reservation Date (Next 7 Days)
+            </h2>
+          </div>
+
+          <!-- Date Scroll Carousel -->
+          <div class="flex items-center gap-3 overflow-x-auto pb-3 scrollbar-none" id="date-carousel">
+            <!-- JS will populate next 7 calendar days -->
+          </div>
+        </div>
+
+        <!-- Step 3: 24/7 Time Slot Grid -->
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-2">
+            <h2 class="text-xl font-bold font-heading text-white flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs font-black border border-cyan-500/40">3</span>
+              Select Start Time (24/7 Slot Grid)
+            </h2>
+
+            <!-- Time Period Filters -->
+            <div class="flex items-center gap-1.5 overflow-x-auto">
+              <button class="text-xs px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 font-bold border border-cyan-500/30 font-subheading" onclick="filterTimeSlots('all')">ALL 24H</button>
+              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('night')">NIGHT (12A-6A)</button>
+              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('morning')">MORNING (6A-12P)</button>
+              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('afternoon')">AFTERNOON (12P-6P)</button>
+              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('evening')">EVENING (6P-12A)</button>
+            </div>
+          </div>
+
+          <!-- 48 Slot Grid Container -->
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 glass-panel p-4" id="time-slot-grid">
+            <!-- Dynamic 30-min time slots populated by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Step 4 & 5 (Duration, Addons, Gamer Profile & Bill Breakdown) -->
+      <div class="lg:col-span-4 space-y-6">
+        
+        <div class="glass-panel p-6 space-y-6 sticky top-24">
+          
+          <!-- Step 4: Duration & Controller Addons -->
+          <div class="space-y-4 border-b border-slate-800 pb-6">
+            <h3 class="font-heading font-bold text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded bg-pink-500/20 text-pink-400 flex items-center justify-center text-xs">4</span>
+              Duration & Controllers
+            </h3>
+
+            <!-- Duration Selector -->
+            <div class="space-y-1.5">
+              <label class="block text-xs font-subheading uppercase text-slate-300 font-bold">Play Duration</label>
+              <div class="grid grid-cols-2 gap-2" id="duration-grid">
+                <button class="duration-btn" data-mins="30" onclick="selectDuration(30)">30 Mins</button>
+                <button class="duration-btn active" data-mins="60" onclick="selectDuration(60)">1 Hour</button>
+                <button class="duration-btn" data-mins="120" onclick="selectDuration(120)">2 Hours</button>
+                <button class="duration-btn" data-mins="180" onclick="selectDuration(180)">3 Hours</button>
+                <button class="duration-btn col-span-2" data-mins="240" onclick="selectDuration(240)">4 Hours</button>
+              </div>
+            </div>
+
+            <!-- Extra Controllers -->
+            <div class="space-y-1.5 pt-2" id="controller-addon-wrapper">
+              <div class="flex items-center justify-between">
+                <label class="block text-xs font-subheading uppercase text-slate-300 font-bold">
+                  Extra Controllers (+150 PKR/hr)
+                </label>
+                <span class="text-[11px] text-slate-400" id="controller-addon-hint">Included: 2</span>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded-lg border border-slate-800">
+                <button type="button" class="w-8 h-8 rounded bg-slate-800 text-white font-bold hover:bg-slate-700" onclick="changeControllers(-1)">-</button>
+                <span id="controller-count-display" class="font-heading font-bold text-cyan-400 text-lg">0</span>
+                <button type="button" class="w-8 h-8 rounded bg-slate-800 text-white font-bold hover:bg-slate-700" onclick="changeControllers(1)">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5: Customer Profile & Live Bill Audit -->
+          <div class="space-y-4">
+            <h3 class="font-heading font-bold text-white text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">5</span>
+              Gamer Credentials
+            </h3>
+
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-subheading uppercase text-slate-400 mb-1">Full Name *</label>
+                <input type="text" id="customer-name" placeholder="e.g. Shahzaib Khan" class="calc-input text-sm !py-2.5">
+              </div>
+              <div>
+                <label class="block text-xs font-subheading uppercase text-slate-400 mb-1">WhatsApp Mobile No *</label>
+                <input type="tel" id="customer-phone" placeholder="e.g. 0300 1234567" class="calc-input text-sm !py-2.5">
+              </div>
+            </div>
+
+            <!-- Live Bill Summary -->
+            <div class="p-4 rounded-xl bg-slate-950/90 border border-cyan-500/30 space-y-3">
+              <div class="text-xs font-subheading text-cyan-400 font-bold uppercase tracking-wider flex justify-between">
+                <span>Summary Audit</span>
+                <span id="summary-date-time">Today, 08:00 PM</span>
+              </div>
+              
+              <div class="space-y-1 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Service Base:</span>
+                  <div>
+                    <span class="old-price" id="summary-regular-base">1,000 PKR</span>
+                    <span class="font-bold text-cyan-400" id="summary-base-rate">800 PKR</span>
+                  </div>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Addon Controllers:</span>
+                  <span class="font-bold text-white" id="summary-addon-rate">0 PKR</span>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800 flex justify-between items-center">
+                <span class="text-xs uppercase font-subheading font-bold text-slate-300">Total Payable</span>
+                <span class="text-2xl font-black font-heading text-pink-400 text-glow-magenta" id="summary-grand-total">800 PKR</span>
+              </div>
+            </div>
+
+            <!-- Lock Slot CTA Button -->
+            <button type="button" onclick="generatePassAndOpenModal()" class="btn-neon-green w-full py-3.5 text-center font-bold tracking-wider text-sm shadow-xl">
+              <i class="fa-solid fa-qrcode text-lg"></i>
+              <span>LOCK SLOT & GENERATE PASS</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= STEP 6: VERIFICATION PASS MODAL ================= -->
+  <div id="pass-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-panel glass-panel-magenta max-w-md w-full p-6 sm:p-8 space-y-6 relative rounded-2xl border border-pink-500/50 shadow-2xl animate-fadeIn">
+      
+      <!-- Close button -->
+      <button onclick="closePassModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Modal Header Ticket -->
+      <div class="text-center space-y-1">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 text-[11px] font-bold font-subheading uppercase border border-emerald-500/40">
+          <i class="fa-solid fa-circle-check"></i> DIGITAL ENTRY PASS GENERATED
+        </div>
+        <h3 class="text-2xl font-black font-heading text-white">RESERVATION PASS</h3>
+        <div class="text-xs font-mono text-cyan-400 font-bold" id="pass-id-display">#GV-84920</div>
+      </div>
+
+      <!-- QR Code Box -->
+      <div class="flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-inner mx-auto w-48 h-48 border-2 border-cyan-400">
+        <img id="qr-code-img" src="" alt="Reservation Pass QR Code" class="w-40 h-40 object-contain">
+      </div>
+
+      <!-- Pass Ticket Summary -->
+      <div class="bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Gamer Name:</span>
+          <span class="font-bold text-white" id="modal-gamer-name">Ali Ahmed</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Amenity:</span>
+          <span class="font-bold text-cyan-400" id="modal-amenity-name">PS-5 Room Titan</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Date & Slot:</span>
+          <span class="font-bold text-white" id="modal-date-slot">Today @ 08:00 PM</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+          <span class="text-slate-400">Duration & Controllers:</span>
+          <span class="font-bold text-white" id="modal-duration-controllers">1 Hour (+0 Controllers)</span>
+        </div>
+        <div class="flex justify-between pt-1">
+          <span class="text-slate-400 font-bold uppercase">Total Payable:</span>
+          <span class="font-black text-base text-pink-400" id="modal-total-price">800 PKR</span>
+        </div>
+      </div>
+
+      <!-- Dispatch WhatsApp Button -->
+      <div class="space-y-2">
+        <a id="modal-whatsapp-link" href="#" target="_blank" class="btn-neon-green w-full text-center py-3.5 text-sm font-bold shadow-lg">
+          <i class="fa-brands fa-whatsapp text-xl"></i>
+          <span>CONFIRM & LOCK VIA WHATSAPP</span>
+        </a>
+        <button onclick="window.print()" class="w-full text-center py-2 text-xs text-slate-400 hover:text-cyan-400">
+          <i class="fa-solid fa-print mr-1"></i> Print / Save Ticket Pass
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-slate-950 border-t border-slate-900 py-6 text-xs text-slate-400 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        &copy; 2026 Gaming Vault (@gamingvault47.pk). Dedicated Booking Engine.
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-cyan-400">Landing Page</a>
+        <span>•</span>
+        <a href="tel:03343680630" class="hover:text-cyan-400">0334 3680630</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT ENGINE ================= -->
+  <script>
+    // Central Booking Schema
+    const BOOKING_CONFIG = {
+      phone: "03343680630",
+      whatsappPhone: "923343680630",
+      services: {
+        titan: { name: "PS-5 Room Titan", category: "ps5", discountHour: 800, normalHour: 1000, discountHalf: 400, normalHalf: 500, maxControllers: 4 },
+        omega: { name: "PS-5 Room Omega", category: "ps5", discountHour: 800, normalHour: 1000, discountHalf: 400, normalHalf: 500, maxControllers: 4 },
+        phantom: { name: "PS-5 Room Phantom", category: "ps5", discountHour: 800, normalHour: 1000, discountHalf: 400, normalHalf: 500, maxControllers: 4 },
+        vault_vip: { name: "The Vault (VIP Suite)", category: "ps5", discountHour: 1000, normalHour: 1200, discountHalf: 500, normalHalf: 600, maxControllers: 4 },
+        snooker: { name: "Tournament Snooker Table", category: "cuesports", discountHour: 720, normalHour: 840, discountHalf: 360, normalHalf: 420, maxControllers: 0 },
+        dabbu: { name: "Dabbu (Carrom Arena)", category: "boardgames", discountHour: 400, normalHour: 500, discountHalf: 200, normalHalf: 250, maxControllers: 0 },
+        luddo: { name: "Luddo Arena Table", category: "boardgames", discountHour: 350, normalHour: 350, discountHalf: 200, normalHalf: 200, maxControllers: 0 }
+      },
+      addons: { controllerRatePerHour: 150 }
+    };
+
+    // Session State
+    const state = {
+      amenityId: 'titan',
+      date: '',
+      timeSlot: '08:00 PM',
+      durationMins: 60,
+      extraControllers: 0,
+      customerName: '',
+      customerPhone: '',
+      ticketPassId: ''
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initUrlParams();
+      initDateCarousel();
+      initTimeSlotGrid();
+      updateBillSummary();
+    });
+
+    // Parse URL query parameter (e.g. book.html?service=vault_vip)
+    function initUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      const serviceParam = params.get('service');
+      if (serviceParam && BOOKING_CONFIG.services[serviceParam]) {
+        selectAmenity(serviceParam);
+      }
+    }
+
+    // Step 1: Amenity Selection
+    function selectAmenity(amenityId) {
+      if (!BOOKING_CONFIG.services[amenityId]) return;
+      state.amenityId = amenityId;
+
+      document.querySelectorAll('.amenity-card-select').forEach(card => {
+        if (card.dataset.id === amenityId) {
+          card.classList.add('selected');
+        } else {
+          card.classList.remove('selected');
+        }
+      });
+
+      const serviceObj = BOOKING_CONFIG.services[amenityId];
+      document.getElementById('selected-amenity-label').textContent = `${serviceObj.name} Selected`;
+
+      // Disable controllers for non-PS5 games
+      const controllerWrapper = document.getElementById('controller-addon-wrapper');
+      if (serviceObj.category !== 'ps5') {
+        state.extraControllers = 0;
+        document.getElementById('controller-count-display').textContent = '0';
+        controllerWrapper.classList.add('opacity-30', 'pointer-events-none');
+      } else {
+        controllerWrapper.classList.remove('opacity-30', 'pointer-events-none');
+      }
+
+      updateBillSummary();
+    }
+
+    // Step 2: 7-Day Calendar Carousel
+    function initDateCarousel() {
+      const carouselEl = document.getElementById('date-carousel');
+      carouselEl.innerHTML = '';
+      
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      const today = new Date();
+
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+
+        const dayName = i === 0 ? 'Today' : (i === 1 ? 'Tomorrow' : days[d.getDay()]);
+        const dateStr = `${d.getDate()} ${months[d.getMonth()]}`;
+        const fullDateVal = `${dayName}, ${dateStr}`;
+
+        if (i === 0) state.date = fullDateVal;
+
+        const card = document.createElement('div');
+        card.className = `date-card ${i === 0 ? 'active' : ''}`;
+        card.innerHTML = `
+          <div class="text-xs font-bold font-subheading uppercase text-cyan-400">${dayName}</div>
+          <div class="text-sm font-bold text-white">${dateStr}</div>
+        `;
+
+        card.onclick = () => {
+          document.querySelectorAll('.date-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          state.date = fullDateVal;
+          updateBillSummary();
+        };
+
+        carouselEl.appendChild(card);
+      }
+    }
+
+    // Step 3: 24/7 Time Slot Grid (48 Slots)
+    function initTimeSlotGrid() {
+      const gridEl = document.getElementById('time-slot-grid');
+      gridEl.innerHTML = '';
+
+      const slots = [];
+      for (let h = 0; h < 24; h++) {
+        for (let m of [0, 30]) {
+          const period = h >= 12 ? 'PM' : 'AM';
+          const displayH = h % 12 === 0 ? 12 : h % 12;
+          const displayM = m === 0 ? '00' : '30';
+          const timeLabel = `${displayH}:${displayM} ${period}`;
+          
+          let category = 'night';
+          if (h >= 6 && h < 12) category = 'morning';
+          else if (h >= 12 && h < 18) category = 'afternoon';
+          else if (h >= 18 && h < 24) category = 'evening';
+
+          slots.push({ label: timeLabel, category: category, rawHour: h });
+        }
+      }
+
+      slots.forEach((s, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `slot-btn ${s.label === state.timeSlot ? 'active' : ''}`;
+        btn.dataset.category = s.category;
+        btn.textContent = s.label;
+
+        btn.onclick = () => {
+          document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state.timeSlot = s.label;
+          updateBillSummary();
+        };
+
+        gridEl.appendChild(btn);
+      });
+    }
+
+    function filterTimeSlots(category) {
+      document.querySelectorAll('.slot-btn').forEach(btn => {
+        if (category === 'all' || btn.dataset.category === category) {
+          btn.style.display = 'block';
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+    }
+
+    // Step 4: Duration Selection
+    function selectDuration(mins) {
+      state.durationMins = mins;
+      document.querySelectorAll('.duration-btn').forEach(btn => {
+        if (parseInt(btn.dataset.mins) === mins) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      updateBillSummary();
+    }
+
+    // Controller Counter (+ / -)
+    function changeControllers(delta) {
+      const service = BOOKING_CONFIG.services[state.amenityId];
+      if (service.category !== 'ps5') return;
+
+      const newQty = state.extraControllers + delta;
+      if (newQty >= 0 && newQty <= service.maxControllers) {
+        state.extraControllers = newQty;
+        document.getElementById('controller-count-display').textContent = newQty;
+        updateBillSummary();
+      }
+    }
+
+    // Live Bill Arithmetic Formula
+    function updateBillSummary() {
+      const service = BOOKING_CONFIG.services[state.amenityId];
+      if (!service) return;
+
+      const durationHours = state.durationMins / 60;
+      let baseDiscountCost = 0;
+      let baseNormalCost = 0;
+
+      if (state.durationMins === 30) {
+        baseDiscountCost = service.discountHalf;
+        baseNormalCost = service.normalHalf;
+      } else {
+        baseDiscountCost = service.discountHour * durationHours;
+        baseNormalCost = service.normalHour * durationHours;
+      }
+
+      const addonCost = state.extraControllers * BOOKING_CONFIG.addons.controllerRatePerHour * durationHours;
+      const grandTotal = baseDiscountCost + addonCost;
+
+      // Update UI elements
+      document.getElementById('summary-date-time').textContent = `${state.date} @ ${state.timeSlot}`;
+      document.getElementById('summary-base-rate').textContent = `${baseDiscountCost.toLocaleString()} PKR`;
+      document.getElementById('summary-regular-base').textContent = `${baseNormalCost.toLocaleString()} PKR`;
+      document.getElementById('summary-addon-rate').textContent = addonCost > 0 ? `+${addonCost.toLocaleString()} PKR` : '0 PKR';
+      document.getElementById('summary-grand-total').textContent = `${grandTotal.toLocaleString()} PKR`;
+    }
+
+    // Step 6: Generate Pass & Open Verification Modal
+    function generatePassAndOpenModal() {
+      const nameInput = document.getElementById('customer-name').value.trim();
+      const phoneInput = document.getElementById('customer-phone').value.trim();
+
+      if (!nameInput || !phoneInput) {
+        alert('Please enter your Name and WhatsApp Mobile Number to lock your slot pass.');
+        return;
+      }
+
+      state.customerName = nameInput;
+      state.customerPhone = phoneInput;
+
+      // Generate Ticket Pass ID
+      const randomTicketNum = Math.floor(10000 + Math.random() * 90000);
+      state.ticketPassId = `#GV-${randomTicketNum}`;
+
+      const service = BOOKING_CONFIG.services[state.amenityId];
+      const durationHours = state.durationMins / 60;
+      let baseDiscountCost = state.durationMins === 30 ? service.discountHalf : service.discountHour * durationHours;
+      let addonCost = state.extraControllers * BOOKING_CONFIG.addons.controllerRatePerHour * durationHours;
+      const grandTotal = baseDiscountCost + addonCost;
+
+      const durationText = state.durationMins === 30 ? '30 Mins' : `${durationHours} Hour${durationHours > 1 ? 's' : ''}`;
+
+      // Populate Modal details
+      document.getElementById('pass-id-display').textContent = state.ticketPassId;
+      document.getElementById('modal-gamer-name').textContent = state.customerName;
+      document.getElementById('modal-amenity-name').textContent = service.name;
+      document.getElementById('modal-date-slot').textContent = `${state.date} @ ${state.timeSlot}`;
+      document.getElementById('modal-duration-controllers').textContent = `${durationText} (+${state.extraControllers} Controllers)`;
+      document.getElementById('modal-total-price').textContent = `${grandTotal.toLocaleString()} PKR`;
+
+      // Generate QR Code payload URL
+      const qrDataStr = `${state.ticketPassId}|${state.customerName}|${service.name}|${state.date}|${state.timeSlot}|${grandTotal}PKR`;
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrDataStr)}`;
+      document.getElementById('qr-code-img').src = qrApiUrl;
+
+      // Format WhatsApp Deep-Link Message
+      let waMsg = `🎮 *GAMING VAULT - BOOKING RESERVATION*\n`;
+      waMsg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+      waMsg += `🎫 *Pass ID:* ${state.ticketPassId}\n`;
+      waMsg += `👤 *Gamer Name:* ${state.customerName}\n`;
+      waMsg += `📱 *Phone Number:* ${state.customerPhone}\n`;
+      waMsg += `🕹️ *Service / Amenity:* ${service.name}\n`;
+      waMsg += `📅 *Date:* ${state.date}\n`;
+      waMsg += `⏰ *Start Time:* ${state.timeSlot}\n`;
+      waMsg += `⏳ *Duration:* ${durationText}\n`;
+      if (service.category === 'ps5' && state.extraControllers > 0) {
+        waMsg += `🎮 *Extra Controllers:* ${state.extraControllers} (+Rs. ${addonCost})\n`;
+      }
+      waMsg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+      waMsg += `💰 *Total Amount:* Rs. ${grandTotal.toLocaleString()} PKR\n`;
+      waMsg += `🟢 *Status:* Awaiting Slot Lock Verification\n`;
+      waMsg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+      waMsg += `Please confirm availability and lock my slot!`;
+
+      const encodedWa = encodeURIComponent(waMsg);
+      document.getElementById('modal-whatsapp-link').href = `https://wa.me/${BOOKING_CONFIG.whatsappPhone}?text=${encodedWa}`;
+
+      // Open Modal
+      document.getElementById('pass-modal').classList.remove('hidden');
+    }
+
+    function closePassModal() {
+      document.getElementById('pass-modal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
