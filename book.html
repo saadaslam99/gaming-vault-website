@@ -6,10 +6,13 @@
   <title>Booking Portal | Gaming Vault (@gamingvault47.pk)</title>
   <meta name="description" content="Dedicated 24/7 booking engine for Gaming Vault. Select date, time slot, PS5 suites, snooker, or board games and lock your slot instantly.">
   
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Tailwind CSS (compiled locally, v3.4.17) -->
+  <link rel="stylesheet" href="css/tailwind.css">
+  <!-- FontAwesome Icons (self-hosted) -->
+  <link rel="stylesheet" href="css/fontawesome.min.css">
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -94,17 +97,18 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Left: Back to website -->
-      <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-cyan-400 text-sm font-subheading font-bold transition">
+      <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-cyan-400 text-sm font-subheading font-bold transition shrink-0">
         <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to Website</span>
+        <span class="hidden sm:inline">Back to Website</span>
+        <span class="sm:hidden">Back</span>
       </a>
 
       <!-- Center: Portal Brand -->
-      <div class="text-center">
-        <div class="text-lg sm:text-xl font-black font-heading tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-pink-500">
+      <div class="text-center leading-tight min-w-0">
+        <div class="text-base sm:text-xl font-black font-heading tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-pink-500">
           GAMING VAULT PORTAL
         </div>
-        <div class="text-[10px] text-slate-400 tracking-widest uppercase font-subheading">24/7 DEDICATED BOOKING ENGINE</div>
+        <div class="hidden sm:block text-[10px] text-slate-400 tracking-widest uppercase font-subheading">24/7 DEDICATED BOOKING ENGINE</div>
       </div>
 
       <!-- Right: Call & Status -->
@@ -282,12 +286,12 @@
             </h2>
 
             <!-- Time Period Filters -->
-            <div class="flex items-center gap-1.5 overflow-x-auto">
-              <button class="text-xs px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 font-bold border border-cyan-500/30 font-subheading" onclick="filterTimeSlots('all')">ALL 24H</button>
-              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('night')">NIGHT (12A-6A)</button>
-              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('morning')">MORNING (6A-12P)</button>
-              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('afternoon')">AFTERNOON (12P-6P)</button>
-              <button class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading" onclick="filterTimeSlots('evening')">EVENING (6P-12A)</button>
+            <div class="flex items-center gap-1.5 overflow-x-auto" id="time-filter-bar">
+              <button class="time-filter-btn whitespace-nowrap text-xs px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 font-bold border border-cyan-500/30 font-subheading" data-tf="all" onclick="filterTimeSlots('all')">ALL 24H</button>
+              <button class="time-filter-btn whitespace-nowrap text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading border border-transparent" data-tf="night" onclick="filterTimeSlots('night')">NIGHT (12A-6A)</button>
+              <button class="time-filter-btn whitespace-nowrap text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading border border-transparent" data-tf="morning" onclick="filterTimeSlots('morning')">MORNING (6A-12P)</button>
+              <button class="time-filter-btn whitespace-nowrap text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading border border-transparent" data-tf="afternoon" onclick="filterTimeSlots('afternoon')">AFTERNOON (12P-6P)</button>
+              <button class="time-filter-btn whitespace-nowrap text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 hover:text-white font-subheading border border-transparent" data-tf="evening" onclick="filterTimeSlots('evening')">EVENING (6P-12A)</button>
             </div>
           </div>
 
@@ -385,6 +389,7 @@
             </div>
 
             <!-- Lock Slot CTA Button -->
+            <p id="booking-error" class="hidden text-xs font-bold text-pink-400 bg-pink-950/60 border border-pink-500/40 rounded-lg px-3 py-2"></p>
             <button type="button" onclick="generatePassAndOpenModal()" class="btn-neon-green w-full py-3.5 text-center font-bold tracking-wider text-sm shadow-xl">
               <i class="fa-solid fa-qrcode text-lg"></i>
               <span>LOCK SLOT & GENERATE PASS</span>
@@ -417,7 +422,7 @@
       </div>
 
       <!-- QR Code Box -->
-      <div class="flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-inner mx-auto w-48 h-48 border-2 border-cyan-400">
+      <div class="flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-inner mx-auto w-48 h-48 border-2 border-cyan-400" id="qr-box">
         <img id="qr-code-img" src="" alt="Reservation Pass QR Code" class="w-40 h-40 object-contain">
       </div>
 
@@ -634,6 +639,14 @@
           btn.style.display = 'none';
         }
       });
+      // Active-state styling for the filter bar
+      const activeCls = ['bg-cyan-950', 'text-cyan-400', 'font-bold', 'border-cyan-500/30'];
+      const idleCls = ['bg-slate-900', 'text-slate-400', 'border-transparent'];
+      document.querySelectorAll('.time-filter-btn').forEach(btn => {
+        const isActive = btn.dataset.tf === category;
+        btn.classList.remove(...(isActive ? idleCls : activeCls));
+        btn.classList.add(...(isActive ? activeCls : idleCls));
+      });
     }
 
     // Step 4: Duration Selection
@@ -692,11 +705,18 @@
 
     // Step 6: Generate Pass & Open Verification Modal
     function generatePassAndOpenModal() {
+      clearBookingError();
       const nameInput = document.getElementById('customer-name').value.trim();
       const phoneInput = document.getElementById('customer-phone').value.trim();
 
-      if (!nameInput || !phoneInput) {
-        alert('Please enter your Name and WhatsApp Mobile Number to lock your slot pass.');
+      if (!nameInput) {
+        showBookingError('Please enter your name to lock your slot pass.');
+        document.getElementById('customer-name').focus();
+        return;
+      }
+      if (!isValidPkPhone(phoneInput)) {
+        showBookingError('Please enter a valid WhatsApp mobile number (e.g. 0300 1234567).');
+        document.getElementById('customer-phone').focus();
         return;
       }
 
@@ -726,7 +746,9 @@
       // Generate QR Code payload URL
       const qrDataStr = `${state.ticketPassId}|${state.customerName}|${service.name}|${state.date}|${state.timeSlot}|${grandTotal}PKR`;
       const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrDataStr)}`;
-      document.getElementById('qr-code-img').src = qrApiUrl;
+      const qrImg = document.getElementById('qr-code-img');
+      qrImg.onerror = qrFallback; // assigned here: the function is defined by the time a pass is generated
+      qrImg.src = qrApiUrl;
 
       // Format WhatsApp Deep-Link Message
       let waMsg = `🎮 *GAMING VAULT - BOOKING RESERVATION*\n`;
@@ -756,6 +778,37 @@
 
     function closePassModal() {
       document.getElementById('pass-modal').classList.add('hidden');
+    }
+
+    // Escape key closes the pass modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePassModal();
+    });
+
+    // Fallback if the QR API is unreachable: show the pass ID instead
+    function qrFallback() {
+      const box = document.getElementById('qr-box');
+      const passId = document.getElementById('pass-id-display').textContent;
+      box.innerHTML = '<div class="text-center px-2">'
+        + '<div class="text-2xl font-black text-slate-900">' + passId + '</div>'
+        + '<div class="text-[11px] text-slate-500 mt-1">Show this pass ID at the counter</div>'
+        + '</div>';
+    }
+
+    // Inline form error helper
+    function showBookingError(msg) {
+      const el = document.getElementById('booking-error');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+    function clearBookingError() {
+      document.getElementById('booking-error').classList.add('hidden');
+    }
+
+    // Pakistani mobile validation (03XXXXXXXXX, spaces/dashes allowed)
+    function isValidPkPhone(raw) {
+      const digits = raw.replace(/\D/g, '');
+      return /^0?3\d{9}$/.test(digits);
     }
   </script>
 </body>

@@ -7,16 +7,19 @@
   <meta name="description" content="Gaming Vault (@gamingvault47.pk) is Pakistan's premier 24/7 esports lounge featuring private 4K PS5 suites, tournament snooker, Dabbu carrom, and Luddo games.">
   <meta name="keywords" content="Gaming Lounge, PS5 Room, Snooker Lounge, Gaming Vault, Carrom, Luddo, Gaming Cafe Karachi Pakistan, 24/7 Gaming">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Gaming Vault | 24/7 Esports & Private PS5 Lounge">
   <meta property="og:description" content="Level Up Your Gaming at The Vault. Private 4K PS5 suites, tournament snooker tables, and 24/7 gaming action. Limited Time Opening Discounts!">
   <meta property="og:image" content="assets/images/hero_lounge.jpg">
   <meta property="og:type" content="website">
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS (compiled locally, v3.4.17) -->
+  <link rel="stylesheet" href="css/tailwind.css">
+  <!-- FontAwesome Icons (self-hosted) -->
+  <link rel="stylesheet" href="css/fontawesome.min.css">
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -103,7 +106,7 @@
       </div>
       <a href="#rooms" class="block text-base font-semibold hover:text-cyan-400">SUITES & ARENA</a>
       <a href="#pricing" class="block text-base font-semibold hover:text-cyan-400">RATE CARD</a>
-      <a href="book.html" class="block text-base font-semibold text-cyan-400">BOOKING ENGINE (book.html)</a>
+      <a href="book.html" class="block text-base font-semibold text-cyan-400">BOOKING ENGINE</a>
       <a href="#location" class="block text-base font-semibold hover:text-cyan-400">LOCATION & CONTACT</a>
       <div class="pt-4 border-t border-slate-800 flex flex-col gap-3">
         <a href="book.html" class="btn-neon-green w-full justify-center">
@@ -197,7 +200,7 @@
                   <div class="text-xs font-subheading text-cyan-400 uppercase tracking-widest">Featured VIP Suite</div>
                   <div class="font-heading font-bold text-white text-lg">THE VAULT VIP LOUNGE</div>
                 </div>
-                <a href="book.html?service=vault_vip" class="text-xs font-bold text-emerald-400 bg-emerald-950/80 px-3 py-1.5 rounded-full border border-emerald-500/40 hover:bg-emerald-500 hover:text-black transition">
+                <a href="book.html?service=vault_vip" class="text-xs font-bold text-emerald-400 bg-emerald-950/80 px-3 py-1.5 rounded-full border border-emerald-500/40 hover:bg-emerald-500 hover:text-black transition whitespace-nowrap">
                   <i class="fa-solid fa-bolt mr-1"></i> Book VIP
                 </a>
               </div>
@@ -397,13 +400,13 @@
           <div class="p-6 pt-0 border-t border-slate-800/80 mt-4 flex items-center justify-between">
             <div>
               <div class="text-xs text-slate-400 font-subheading">Hourly Rate</div>
-              <div>
+              <div class="whitespace-nowrap">
                 <span class="old-price">1,200</span>
                 <span class="new-price text-pink-400">1,000 PKR/hr</span>
               </div>
               <div class="text-[11px] text-emerald-400">Half-hr: 500 PKR</div>
             </div>
-            <a href="book.html?service=vault_vip" class="btn-neon-magenta !px-4 !py-2 text-xs">
+            <a href="book.html?service=vault_vip" class="btn-neon-magenta !px-4 !py-2 text-xs whitespace-nowrap">
               <span>Book VIP Suite</span>
             </a>
           </div>
@@ -645,7 +648,7 @@
             <span>Extra PS-5 Controller: <strong class="text-cyan-300">+150 PKR / hour</strong> (Up to 4 controllers max)</span>
           </div>
           <a href="book.html" class="btn-neon-green !py-1.5 !px-3 text-xs">
-            <span>Launch Booking Engine (book.html)</span>
+            <span>Launch Booking Engine</span>
           </a>
         </div>
       </div>
@@ -752,7 +755,7 @@
                 <i class="fa-solid fa-chevron-down faq-icon transition-transform"></i>
               </div>
               <div class="faq-content">
-                Walk-ins are always welcome! However, for VIP suites like The Vault or peak evening hours, we strongly recommend reserving a slot in advance via our dedicated booking engine (`book.html`).
+                Walk-ins are always welcome! However, for VIP suites like The Vault or peak evening hours, we strongly recommend reserving a slot in advance via our dedicated booking engine.
               </div>
             </div>
 

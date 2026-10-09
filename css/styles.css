@@ -432,6 +432,29 @@ h1, h2, h3, h4, .font-heading {
   box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
 }
 
+/* Anchored sections clear the fixed header */
+#rooms, #pricing, #location {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Hide scrollbars on carousels */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fade-in entrance used by filter + modal */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.45s ease both;
+}
+
 /* FAQ Accordion Styling */
 .faq-item {
   border-bottom: 1px solid rgba(0, 210, 255, 0.15);
